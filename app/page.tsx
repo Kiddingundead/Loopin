@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
 import { ArrowRight, Bell, Star } from "lucide-react";
 import { CourseCard } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
@@ -72,19 +73,34 @@ export default function Home() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <button
-            type="button"
-            aria-label="Notifications"
-            className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-700 hover:bg-neutral-50"
-          >
-            <Bell className="h-5 w-5" />
-          </button>
-          <div className="h-10 w-10 overflow-hidden rounded-full bg-neutral-200">
-            <svg viewBox="0 0 40 40" className="h-full w-full text-neutral-400" fill="currentColor">
-              <circle cx="20" cy="15" r="7" />
-              <path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14" />
-            </svg>
-          </div>
+          <Show when="signed-in">
+            <button
+              type="button"
+              aria-label="Notifications"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-neutral-700 hover:bg-neutral-50"
+            >
+              <Bell className="h-5 w-5" />
+            </button>
+            <UserButton />
+          </Show>
+          <Show when="signed-out">
+            <SignInButton mode="modal">
+              <button
+                type="button"
+                className="text-sm font-medium text-neutral-700 hover:text-neutral-900"
+              >
+                Sign in
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button
+                type="button"
+                className="rounded-full bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800"
+              >
+                Sign up
+              </button>
+            </SignUpButton>
+          </Show>
         </div>
       </header>
 
